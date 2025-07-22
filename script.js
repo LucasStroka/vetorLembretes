@@ -3,19 +3,8 @@ const rl = require("readline").createInterface({
     output : process.stdout
 });
 
-function askQuestion(query) {
-    return new Promise(resolve => {
-        rl.question(query, resolve);
-    });
-}
 
-let lembretes = {
-    nome,
-    data,
-    stats
-}
-
-let arrayLembretes = []
+let lembretes = {}
 
 function adicionar(){
     rl.question('Digite o nome do lembrente:\n', (input1) =>{
@@ -28,11 +17,9 @@ function adicionar(){
                 })
                 console.log("Lembrete adicionado com sucesso!")
                 rl.question('\nDeseja adicionar um novo lembrete?(s/n)', (input4) =>{
-                    if (input4.toLocaleLowerCase === 's'){adicionar()} else {MenuPrincipal()} 
+                    if (input4.toLowerCase() === 's'){adicionar()} else {MenuPrincipal()} 
                 })
             })
         })
     })
 }
-
-
