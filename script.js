@@ -17,7 +17,7 @@ let bool = true
 
 async function startFunction() {
     while (bool) {
-        let idQuestion = parseInt(await askQuestion("====Menu De Opções====\n1- Adicionar \n2- Listar \n3- Editar \n4- Marcar como Concluido\n5- Sair\n : "))
+        let idQuestion = parseInt(await askQuestion("\n====Menu De Opções====\n1- Adicionar \n2- Listar \n3- Editar \n4- Marcar como Concluido\n5- Sair\n"))
         switch (idQuestion) {
             case 1:
                 await adicionar();
@@ -44,17 +44,17 @@ async function startFunction() {
 
 
 async function edit() {
-    console.log("=====================");
+    console.log("=====================\n==== Lembretes ====");
     
     for (let i = 0; i < arrayLembretes.length; i++) {
         console.log(`${i+1} - ${arrayLembretes[i].nome} | ${arrayLembretes[i].data} | ${arrayLembretes[i].stats}`)
     }
     
-    let id = await askQuestion("Digite o Indice da Lista que Voce Deseja Editar: ")
+    let id = await askQuestion("\nDigite o Indice da Lista que Voce Deseja Editar: ")
     
-    nome = await askQuestion("Digite o Nome Tarefa: ")
-    data = await askQuestion("Digite a Data Prevista: ")
-    stats = await askQuestion("Digite o Status da Tarefa: ")
+    nome = await askQuestion("\nDigite Novo Nome do Lembrete:")
+    data = await askQuestion("\nDigite a Nova data Prevista:")
+    stats = await askQuestion("\nDigite o Novo Status do Lembrete:")
 
     lembretes = {
         nome: nome,
@@ -66,33 +66,19 @@ async function edit() {
 
 
 async function adicionar(){
-    // rl.question('Digite o nome do lembrente:\n', (input1) =>{
-    //     rl.question('Digite a data do seu lembrete:\n', (input2) =>{
-    //         rl.question('Status do lembrete:\n', (input3) =>{
-    //             lembretes.push({
-    //                 Nome: input1,
-    //                 data: input2,
-    //                 Status: input3
-    //             })
-    //             console.log("Lembrete adicionado com sucesso!")
-    //             rl.question('\nDeseja adicionar um novo lembrete?(s/n)', (input4) =>{
-    //                 if (input4.toLocaleLowerCase === 's'){adicionar()} else {MenuPrincipal()} 
-    //             })
-    //         })
-    //     })
-    // })
 
-    let input1 = await askQuestion('Digite o nome do lembrente:\n')
-    let input2 = await askQuestion("Digite a data do seu lembrete:\n")
-    let input3 = await askQuestion('Status do lembrete:\n')
-
+    let input1 = await askQuestion('\nDigite o nome do lembrente:\n')
+    let input2 = await askQuestion("\nDigite a data do seu lembrete:\n")
+    let input3 = await askQuestion('\nStatus do lembrete:\n')
     lembretes = {
         nome: input1,
         data: input2,
         stats: input3
     }
-
-    arrayLembretes.push(lembretes)    
+    arrayLembretes.push(lembretes)
+    console.log('Adicionado com sucesso!')
+    let input4 = await askQuestion('\nDeseja adiconar mais um lembrete?(s/n)\n')
+    if (input4.toLowerCase() === 's'){adicionar()} else {startFunction()}
 }
 
 async function listar() {
@@ -101,9 +87,6 @@ async function listar() {
         }
     else {
         console.log('Lista de lembretes: \n')
-        // arrayLembretes.forEach((lista, index) => {
-        //     console.log(`${index + 1}. Lembrete: ${lista[index].nome} \ndata para ser feita: ${lista[index].data} \nstatus: ${lista[index].stats}`)
-        // })
         for (let i = 0; i < arrayLembretes.length; i++) {
             console.log(`${i+1} - ${arrayLembretes[i].nome} | ${arrayLembretes[i].data} | ${arrayLembretes[i].stats}`)
         }
@@ -117,8 +100,9 @@ async function marcarComoConcluido() {
         console.log(`${i+1} - ${arrayLembretes[i].nome} | ${arrayLembretes[i].data} | ${arrayLembretes[i].stats}`)
     }
 
-    let idQuestion = parseInt(await askQuestion("Digite Qual Esta Concluido: "))
-    arrayLembretes[idQuestion-1].stats = "Concluido" 
+    let idQuestion = parseInt(await askQuestion("Digite o indice do lembrete que deseja concluir: "))
+    arrayLembretes[idQuestion-1].stats = "Concluido"
+    console.log("Concluido com sucesso") 
 }
 startFunction();
 
