@@ -25,7 +25,10 @@ function adicionar(){
                     Nome: input1,
                     data: parseInt(input2),
                     Status: input3
-
+                })
+                console.log("Lembrete adicionado com sucesso!")
+                rl.question('\nDeseja adicionar um novo lembrete?(s/n)', (input4) =>{
+                    if (input4.toLocaleLowerCase === 's'){adicionar()} else {MenuPrincipal()} 
                 })
             })
         })
